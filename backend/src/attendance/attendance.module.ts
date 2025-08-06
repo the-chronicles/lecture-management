@@ -8,11 +8,16 @@ import {
   Attendance,
   AttendanceSchema,
 } from './schemas/attendance.schema/attendance.schema';
+import {
+  AttendanceCode,
+  AttendanceCodeSchema,
+} from './schemas/code.schema/code.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Attendance.name, schema: AttendanceSchema },
+      { name: AttendanceCode.name, schema: AttendanceCodeSchema },
     ]),
     UserModule,
   ],
