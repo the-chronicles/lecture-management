@@ -20,8 +20,10 @@ export default function DashboardLayout({ children }: Props) {
   const navItems: { label: string; href: string }[] = [
     { label: 'Dashboard', href: `/${user?.role}/dashboard` },
     { label: 'Schedule', href: `/${user?.role}/schedule` },
+    { label: 'Book Class', href: `/${user?.role}/schedule/book` }, // <-- add this
     { label: 'Attendance', href: `/${user?.role}/attendance` },
   ];
+  
 
   return (
     <div className="flex h-screen">

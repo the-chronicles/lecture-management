@@ -3,8 +3,9 @@ import { AuthProvider } from "./context/AuthContext";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
-import LecturerDashboard from './pages/LecturerDashboard';
-import StudentDashboard from './pages/StudentDashboard';
+import LecturerDashboard from "./pages/LecturerDashboard";
+import StudentDashboard from "./pages/StudentDashboard";
+import BookSchedule from "./pages/BookSchedule";
 
 export default function App() {
   return (
@@ -30,6 +31,14 @@ export default function App() {
             element={
               <ProtectedRoute role="lecturer">
                 <LecturerDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lecturer/schedule/book"
+            element={
+              <ProtectedRoute role="lecturer">
+                <BookSchedule />
               </ProtectedRoute>
             }
           />

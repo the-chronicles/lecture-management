@@ -13,6 +13,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   token: string | null;
+  loading: boolean; // ✅ Add loading
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 }
@@ -22,21 +23,27 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true); // ✅ Added
 
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
+
     if (savedToken && savedUser) {
       setToken(savedToken);
       setUser(JSON.parse(savedUser));
     }
+
+    setLoading(false); // ✅ Stop loading after checking storage
   }, []);
 
   const login = async (email: string, password: string) => {
     const res = await axios.post('http://localhost:3000/auth/login', { email, password });
     const { token, user } = res.data;
+
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
+
     setToken(token);
     setUser(user);
   };
@@ -48,7 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
