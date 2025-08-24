@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { FaChalkboardTeacher, FaBook, FaUsers } from 'react-icons/fa';
+// import { FaChalkboardTeacher, FaBook, FaUsers } from 'react-icons/fa';
 
 
 interface Props {

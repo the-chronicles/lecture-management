@@ -1,68 +1,3 @@
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
-
-// export default function LoginPage() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const { login } = useAuth();
-//   const navigate = useNavigate();
-//   const [error, setError] = useState("");
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     try {
-//       await login(email, password);
-
-//       const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-
-//       if (storedUser.role === "admin") {
-//         navigate("/admin/dashboard");
-//       } else if (storedUser.role === "lecturer") {
-//         navigate("/lecturer/dashboard");
-//       } else {
-//         navigate("/student/dashboard");
-//       }
-//     } catch (err) {
-//       setError("Invalid credentials");
-//     }
-//   };
-
-//   return (
-//     <div className="h-screen flex items-center justify-center bg-gray-100">
-//       <form
-//         onSubmit={handleSubmit}
-//         className="bg-white p-8 rounded shadow-md w-full max-w-md"
-//       >
-//         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-//         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-//         <input
-//           type="email"
-//           className="w-full mb-4 p-2 border rounded"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           className="w-full mb-4 p-2 border rounded"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button
-//           type="submit"
-//           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-//         >
-//           Sign In
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GraduationCap, Users, BookOpen } from "lucide-react";
@@ -212,7 +147,7 @@ export default function LoginPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
+                className="w-full bg-black hover:shadow-glow transition-all duration-300"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}

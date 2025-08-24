@@ -1,7 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface User {
+  userId: string;
   _id: string;
   name: string;
   email: string;
