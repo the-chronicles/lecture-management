@@ -22,7 +22,7 @@ export async function createSchedule(scheduleData: {
 }) {
   const token = localStorage.getItem('token');
 
-  const res = await axios.post('http://localhost:3000/schedule', scheduleData, {
+  const res = await axios.post('http://localhost:3000/schedule/book', scheduleData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
