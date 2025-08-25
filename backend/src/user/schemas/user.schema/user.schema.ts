@@ -1,4 +1,3 @@
-// export class UserSchema {}
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -23,6 +22,12 @@ export class User {
 
   @Prop({ enum: UserRole, default: UserRole.Student })
   role: UserRole;
+
+  @Prop()
+  department?: string;
+
+  @Prop()
+  level?: string;
   _id: any;
 }
 

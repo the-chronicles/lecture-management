@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GraduationCap, Users, BookOpen } from "lucide-react";
@@ -76,7 +77,7 @@ export default function LoginPage() {
             </div>
           </div>
           <h1 className="text-3xl font-bold">University Portal</h1>
-          <p className="text-muted-foreground">Attendance Management System</p>
+          <p className="text-muted-foreground">Lecture Management System</p>
         </div>
 
         <Card className="shadow-soft">

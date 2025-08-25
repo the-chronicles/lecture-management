@@ -3,19 +3,21 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface User {
-  userId: string;
   _id: string;
   name: string;
   email: string;
   role: 'admin' | 'lecturer' | 'student';
+  department?: string;
+  level?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  loading: boolean; // ✅ Add loading
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>; // <-- Add this
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -23,29 +25,41 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // ✅ Added
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
-
-    if (savedToken && savedUser) {
+    if (savedToken) {
       setToken(savedToken);
-      setUser(JSON.parse(savedUser));
+      fetchUserProfile(savedToken);
+    } else {
+      setLoading(false);
     }
-
-    setLoading(false); // ✅ Stop loading after checking storage
   }, []);
+
+  const fetchUserProfile = async (authToken: string) => {
+    try {
+      const res = await axios.get('http://localhost:3000/users/profile', {
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
+      setUser(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+    } catch (err) {
+      console.error('Failed to fetch profile', err);
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const login = async (email: string, password: string) => {
     const res = await axios.post('http://localhost:3000/auth/login', { email, password });
-    const { token, user } = res.data;
+    const { token } = res.data;
 
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-
     setToken(token);
-    setUser(user);
+
+    await fetchUserProfile(token);
   };
 
   const logout = () => {
@@ -55,7 +69,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, token, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

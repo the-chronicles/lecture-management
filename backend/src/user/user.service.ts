@@ -19,4 +19,10 @@ export class UserService {
   async findById(id: string): Promise<User | null> {
     return this.userModel.findById(id);
   }
+
+  async updateUser(userId: string, updateData: Partial<User>) {
+    return this.userModel.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
+  }
 }
