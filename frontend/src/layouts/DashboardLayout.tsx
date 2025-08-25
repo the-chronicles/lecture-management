@@ -1,8 +1,7 @@
-import type { ReactNode } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import type { ReactNode } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 // import { FaChalkboardTeacher, FaBook, FaUsers } from 'react-icons/fa';
-
 
 interface Props {
   children: ReactNode;
@@ -14,16 +13,15 @@ export default function DashboardLayout({ children }: Props) {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const navItems: { label: string; href: string }[] = [
-    { label: 'Dashboard', href: `/${user?.role}/dashboard` },
-    { label: 'Schedule', href: `/${user?.role}/schedule` },
-    { label: 'Book Class', href: `/${user?.role}/schedule/book` }, // <-- add this
-    { label: 'Attendance', href: `/${user?.role}/attendance` },
+    { label: "Dashboard", href: `/${user?.role}/dashboard` },
+    { label: "Schedule", href: `/${user?.role}/schedule` },
+    { label: "Book Class", href: `/${user?.role}/schedule/book` }, // <-- add this
+    { label: "Attendance", href: `/${user?.role}/attendance` },
   ];
-  
 
   return (
     <div className="flex h-screen">

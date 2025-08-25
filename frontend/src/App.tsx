@@ -8,6 +8,8 @@ import StudentDashboard from "./pages/StudentDashboard";
 import BookSchedule from "./pages/BookSchedule";
 import LecturerSchedule from "./pages/LecturerSchedule";
 import StudentSchedule from "./pages/StudentSchedule";
+import LecturerAttendance from "./pages/LecturerAttendance"; // Add this import
+import StudentAttendance from "./pages/StudentAttendance"; // Add this import
 
 export default function App() {
   return (
@@ -45,10 +47,18 @@ export default function App() {
             }
           />
           <Route
-            path="lecturer/schedule"
+            path="/lecturer/schedule"
             element={
               <ProtectedRoute role="lecturer">
                 <LecturerSchedule />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lecturer/attendance"
+            element={
+              <ProtectedRoute role="lecturer">
+                <LecturerAttendance />
               </ProtectedRoute>
             }
           />
@@ -63,10 +73,18 @@ export default function App() {
             }
           />
           <Route
-            path="student/schedule"
+            path="/student/schedule"
             element={
               <ProtectedRoute role="student">
                 <StudentSchedule />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/student/attendance"
+            element={
+              <ProtectedRoute role="student">
+                <StudentAttendance />
               </ProtectedRoute>
             }
           />
