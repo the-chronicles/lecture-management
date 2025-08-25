@@ -83,17 +83,29 @@ export class ScheduleService {
 
   // schedule.service.ts - update getLecturesForStudent method
   async getLecturesForStudent(department: string, level: string) {
+    console.log('🔍 Student query received:', { department, level });
+
+    // First, let's see ALL documents to understand what's stored
     const allLectures = await this.scheduleModel.find({}).exec();
+    console.log('📊 ALL lectures in database:', allLectures);
+
+    // Check if any lectures match the department (case insensitive)
     const departmentMatch = await this.scheduleModel
       .find({
         department: { $regex: new RegExp(department, 'i') },
       })
       .exec();
+    console.log('🎯 Lectures matching department pattern:', departmentMatch);
+
+    // Check if any lectures match the level
     const levelMatch = await this.scheduleModel
       .find({
         level: level,
       })
       .exec();
+    console.log('🔢 Lectures matching level:', levelMatch);
+
+    // Now try the actual query with case-insensitive search
     const lectures = await this.scheduleModel
       .find({
         department: { $regex: new RegExp(`^${department}$`, 'i') }, // case insensitive
@@ -104,6 +116,24 @@ export class ScheduleService {
       .sort({ startTime: 1 })
       .exec();
 
+    console.log('✅ Final query result:', lectures);
     return lectures;
   }
+
+  // async getLecturesForStudent(department: string, level: string) {
+  //   const normalizedDept = department.trim();
+  //   const normalizedLevel = level.toString().trim();
+
+  //   const lectures = await this.scheduleModel
+  //     .find({
+  //       department: { $regex: new RegExp(`^${normalizedDept}$`, 'i') },
+  //       level: normalizedLevel,
+  //       isCancelled: false,
+  //       startTime: { $gte: new Date() }, // Only future lectures
+  //     })
+  //     .sort({ startTime: 1 })
+  //     .exec();
+
+  //   return lectures;
+  // }
 }
