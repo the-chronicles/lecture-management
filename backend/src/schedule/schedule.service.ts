@@ -69,4 +69,41 @@ export class ScheduleService {
       { new: true },
     );
   }
+
+  // async getLecturesForStudent(department: string, level: string) {
+  //   return this.scheduleModel
+  //     .find({
+  //       department,
+  //       level,
+  //       isCancelled: false,
+  //       startTime: { $gte: new Date() }, // only upcoming
+  //     })
+  //     .sort({ startTime: 1 });
+  // }
+
+  // schedule.service.ts - update getLecturesForStudent method
+  async getLecturesForStudent(department: string, level: string) {
+    const allLectures = await this.scheduleModel.find({}).exec();
+    const departmentMatch = await this.scheduleModel
+      .find({
+        department: { $regex: new RegExp(department, 'i') },
+      })
+      .exec();
+    const levelMatch = await this.scheduleModel
+      .find({
+        level: level,
+      })
+      .exec();
+    const lectures = await this.scheduleModel
+      .find({
+        department: { $regex: new RegExp(`^${department}$`, 'i') }, // case insensitive
+        level: level,
+        isCancelled: false,
+        // startTime: { $gte: new Date() }, // remove this temporarily for testing
+      })
+      .sort({ startTime: 1 })
+      .exec();
+
+    return lectures;
+  }
 }

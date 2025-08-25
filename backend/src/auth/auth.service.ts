@@ -22,7 +22,12 @@ export class AuthService {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const payload = { sub: user._id, role: user.role };
+    const payload = {
+      sub: user._id,
+      role: user.role,
+      department: user.department,
+      level: user.level,
+    };
     return {
       token: this.jwtService.sign(payload),
       user,

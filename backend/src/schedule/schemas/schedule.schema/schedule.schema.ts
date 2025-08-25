@@ -15,6 +15,12 @@ export class Schedule {
   hall: string;
 
   @Prop({ required: true })
+  department: string;
+
+  @Prop({ required: true })
+  level: string;
+
+  @Prop({ required: true })
   startTime: Date;
 
   @Prop({ required: true })

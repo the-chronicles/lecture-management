@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
@@ -51,5 +52,15 @@ export class ScheduleController {
       new Date(endTime),
     );
     return { availableHalls };
+  }
+
+  // ✅ For students to view their schedule by department and level
+  @Get('student')
+  @Roles('student')
+  async getForStudent(
+    @Query('department') department: string,
+    @Query('level') level: string,
+  ) {
+    return this.scheduleService.getLecturesForStudent(department, level);
   }
 }

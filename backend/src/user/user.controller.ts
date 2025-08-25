@@ -44,7 +44,8 @@ export class UserController {
     }
 
     return {
-      id: user._id,
+      _id: user._id,
+      name: user.name,
       email: user.email,
       department: user.department,
       level: user.level,

@@ -6,6 +6,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import LecturerDashboard from "./pages/LecturerDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
 import BookSchedule from "./pages/BookSchedule";
+import LecturerSchedule from "./pages/LecturerSchedule";
+import StudentSchedule from "./pages/StudentSchedule";
 
 export default function App() {
   return (
@@ -42,6 +44,14 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="lecturer/schedule"
+            element={
+              <ProtectedRoute role="lecturer">
+                <LecturerSchedule />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Student Routes */}
           <Route
@@ -49,6 +59,14 @@ export default function App() {
             element={
               <ProtectedRoute role="student">
                 <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="student/schedule"
+            element={
+              <ProtectedRoute role="student">
+                <StudentSchedule />
               </ProtectedRoute>
             }
           />
