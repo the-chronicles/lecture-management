@@ -1,5 +1,6 @@
+// headcount.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type HeadcountDocument = Headcount & Document;
 
@@ -12,7 +13,19 @@ export class Headcount {
   count: number;
 
   @Prop()
-  capturedBy?: string; // e.g., Device ID or module name
+  capturedBy?: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'Schedule' })
+  lectureId?: Types.ObjectId;
+
+  @Prop()
+  courseTitle?: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  lecturerId?: Types.ObjectId;
+
+  @Prop({ required: true, default: Date.now })
+  timestamp: Date;
 }
 
 export const HeadcountSchema = SchemaFactory.createForClass(Headcount);
